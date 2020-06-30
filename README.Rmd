@@ -1,0 +1,11 @@
+---
+title: "README"
+author: "Robert West"
+date: "6/30/2020"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

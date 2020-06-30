@@ -1,5 +1,6 @@
-# 558-Project-2
-2nd Project in 558
+README
+================
+Robert West
+6/30/2020
 
 
-This is a line from R studio
