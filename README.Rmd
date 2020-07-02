@@ -144,9 +144,9 @@ test_num = data_Test %>%
 library(MASS)
 
 logistic_Fit = glm(shares_cat ~ ., data=train_num, family="binomial") %>%
-  stepAIC(direction = "backward", trace=FALSE)
+  stepAIC(direction = "backward", trace=FALSE, steps = 5)
 
-logistic_Pred = predict(logistic_Fit, type = "response", newdata = data_Test)
+logistic_Pred = predict(logistic_Fit, type = "response", newdata = test_num)
 pred_Class = ifelse(logistic_Pred > 0.5, "High", "Low")
 mean(pred_Class != data_Test$shares_cat)
 ```
