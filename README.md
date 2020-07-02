@@ -66,64 +66,10 @@ week.
 ``` r
 data_Analysis$shares_cat = ifelse(data_Analysis$shares >= 1400, "High", "Low")
 
-data_day = data_Analysis %>% 
-  filter(monday == 1) 
+data_Day = data_Analysis %>% 
+  filter(monday == 1) %>%
+  mutate(shares_cat = as.factor(shares_cat))
 ```
-
-# Data Exploration
-
-``` r
-ggplot(data=data_day, aes(x=n_tokens_title, y=n_tokens_content))+
-  geom_jitter(aes(color=shares_cat))+
-  labs(x="Title Characters", y="Content Characters", color="Share Volume", title="Title Vs Content in Characters")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-``` r
-ggplot(data=data_day, aes(x=rate_positive_words, y=global_rate_positive_words))+
-  geom_jitter(aes(color=shares_cat))+
-  labs(x="Rate of Positive Words", y="Global Rate of Positive Words", color="Share Volume", title="Individual vs Global Positive Word Rate")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
-
-``` r
-ggplot(data=data_day, aes(x=rate_negative_words, y=global_rate_negative_words))+
-  geom_jitter(aes(color=shares_cat))+
-  labs(x="Rate of Negative Words", y="Global Rate of Negative Words", color="Share Volume", title="Individual vs Global Negative Word Rate")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
-
-``` r
-ggplot(data=data_day, aes(x=global_subjectivity, y=global_sentiment_polarity))+
-  geom_jitter(aes(color = shares_cat))+
-  labs(x="Global Subjectivity", y="Global Sentiment", title="Subjectivity Against Sentiment", color = "Share Volume")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-4.png)<!-- -->
-
-``` r
-ggplot(data=data_day, aes(x=shares_cat, y=n_tokens_title))+
-  geom_boxplot(aes(color=shares_cat))+
-  labs(y="Title Characters", x="Shares Volume", color="Shares Volume")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-5.png)<!-- -->
-
-``` r
-ggplot(data=data_day, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
-  geom_jitter(aes(color=shares_cat))+
-  labs(x="Average Positive Polarity", y="Average Negative Polarity", color="Shares Volume", title="Average Positive vs Negative Polarity")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-6.png)<!-- -->
-
-To attempt to predict the relative popularity of a post, I will utilize
-Logistic regression as a GLM and a random forest fit and tuned on a
-training set and evaluated on a test set using misclassification rate as
-the metric for selecting a better fitting model.
 
 # Train/Test split
 
@@ -131,11 +77,86 @@ Since there is a plethora of data for every day, I will do a 70:30 split
 for training/testing respectively
 
 ``` r
-train = sample(1:nrow(data_day), size = 0.7*nrow(data_day))
-test = dplyr::setdiff(1:nrow(data_day), train)
+set.seed(623)
+train = sample(1:nrow(data_Day), size = 0.7*nrow(data_Day))
+test = dplyr::setdiff(1:nrow(data_Day), train)
 
-data_train = data_day[train, ]
-data_test = data_day[test, ]
+data_Train = data_Day[train, ]
+data_Test = data_Day[test, ]
+```
+
+# Data Exploration
+
+``` r
+ggplot(data=data_Train, aes(x=n_tokens_title, y=n_tokens_content))+
+  geom_jitter(aes(color=shares_cat))+
+  labs(x="Title Characters", y="Content Characters", color="Share Volume", title="Title Vs Content in Characters")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(data=data_Train, aes(x=rate_positive_words, y=global_rate_positive_words))+
+  geom_jitter(aes(color=shares_cat))+
+  labs(x="Rate of Positive Words", y="Global Rate of Positive Words", color="Share Volume", title="Individual vs Global Positive Word Rate")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+``` r
+ggplot(data=data_Train, aes(x=rate_negative_words, y=global_rate_negative_words))+
+  geom_jitter(aes(color=shares_cat))+
+  labs(x="Rate of Negative Words", y="Global Rate of Negative Words", color="Share Volume", title="Individual vs Global Negative Word Rate")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+
+``` r
+ggplot(data=data_Train, aes(x=global_subjectivity, y=global_sentiment_polarity))+
+  geom_jitter(aes(color = shares_cat))+
+  labs(x="Global Subjectivity", y="Global Sentiment", title="Subjectivity Against Sentiment", color = "Share Volume")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
+
+``` r
+ggplot(data=data_Train, aes(x=shares_cat, y=n_tokens_title))+
+  geom_boxplot(aes(color=shares_cat))+
+  labs(y="Title Characters", x="Shares Volume", color="Shares Volume")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-5.png)<!-- -->
+
+``` r
+ggplot(data=data_Train, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
+  geom_jitter(aes(color=shares_cat))+
+  labs(x="Average Positive Polarity", y="Average Negative Polarity", color="Shares Volume", title="Average Positive vs Negative Polarity")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-6.png)<!-- -->
+
+To attempt to predict the relative popularity of a post, I will utilize
+Logistic regression as a GLM and a random forest fit and tuned on a
+training set and evaluated on a test set using misclassification rate as
+the metric for selecting a better fitting model.
+
+First, I need to grab the numeric variables from the training set
+
+``` r
+train_num = data_Train %>%
+  select(-c(is_weekend,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday,
+            shares))
 ```
 
 # Fitting a Logistic Regression Model to the training set
+
+``` r
+logistic_Fit = glm(shares_cat ~ ., data=train_num, family="binomial")
+```
