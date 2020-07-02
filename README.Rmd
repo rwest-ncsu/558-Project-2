@@ -124,6 +124,17 @@ train_num = data_Train %>%
             saturday,
             sunday,
             shares))
+
+test_num = data_Test %>%
+  select(-c(is_weekend,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday,
+            shares))
 ```
 
 
@@ -137,18 +148,19 @@ logistic_Fit = glm(shares_cat ~ ., data=train_num, family="binomial") %>%
 
 logistic_Pred = predict(logistic_Fit, type = "response", newdata = data_Test)
 pred_Class = ifelse(logistic_Pred > 0.5, "High", "Low")
-mean(pred_Class == data_Test$shares_cat)
+mean(pred_Class != data_Test$shares_cat)
 ```
 
 
 # Fitting a random forest to the training set
 ```{r}
-trctrl = trainControl(method="repeatedcv", number=10, repeats = 3)
+trctrl = trainControl(method="repeatedcv", number=5, repeats = 2)
 
 rf_Fit = train(shares_cat ~ ., data=train_num, method="rf",
               trControl = trctrl,
               preProcess = c("center", "scale"),
-              tuneLength = 40)
+              tuneLength = 20,
+              ntree = 100)
 rf_Fit
 
 ggplot(data=rf_Fit)
