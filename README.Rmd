@@ -47,6 +47,9 @@ Here are the the reports that are generated for each day:
 * The analysis for [Sunday is available here](sunday.md).    
 
 
+```{r}
+rmarkdown::render("Analysis.Rmd", output_file = "monday.md", params=list(day="monday"))
+```
 
 
 
