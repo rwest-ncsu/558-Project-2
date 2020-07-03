@@ -3,7 +3,7 @@ Analysis
 Robert West
 7/2/2020
 
-# MONDAY Report
+# WEDNESDAY Report
 
 ## About the Data
 
@@ -94,7 +94,7 @@ ggplot(data=data_Train, aes(x=n_tokens_title, y=n_tokens_content))+
   labs(x="Title Characters", y="Content Characters", color="Share Volume", title="Title Vs Content in Characters")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=rate_positive_words, y=global_rate_positive_words))+
@@ -102,7 +102,7 @@ ggplot(data=data_Train, aes(x=rate_positive_words, y=global_rate_positive_words)
   labs(x="Rate of Positive Words", y="Global Rate of Positive Words", color="Share Volume", title="Individual vs Global Positive Word Rate")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=rate_negative_words, y=global_rate_negative_words))+
@@ -110,7 +110,7 @@ ggplot(data=data_Train, aes(x=rate_negative_words, y=global_rate_negative_words)
   labs(x="Rate of Negative Words", y="Global Rate of Negative Words", color="Share Volume", title="Individual vs Global Negative Word Rate")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=global_subjectivity, y=global_sentiment_polarity))+
@@ -118,7 +118,7 @@ ggplot(data=data_Train, aes(x=global_subjectivity, y=global_sentiment_polarity))
   labs(x="Global Subjectivity", y="Global Sentiment", title="Subjectivity Against Sentiment", color = "Share Volume")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=shares_cat, y=n_tokens_title))+
@@ -126,7 +126,7 @@ ggplot(data=data_Train, aes(x=shares_cat, y=n_tokens_title))+
   labs(y="Title Characters", x="Shares Volume", color="Shares Volume")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-5.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-5.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
@@ -134,7 +134,7 @@ ggplot(data=data_Train, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
   labs(x="Average Positive Polarity", y="Average Negative Polarity", color="Shares Volume", title="Average Positive vs Negative Polarity")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-6.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-5-6.png)<!-- -->
 
 To attempt to predict the relative popularity of a post, I will utilize
 Logistic regression as a GLM and a random forest fit and tuned on a
@@ -202,35 +202,35 @@ rf_Fit
 
     ## Random Forest 
     ## 
-    ## 4662 samples
+    ## 5204 samples
     ##   45 predictor
     ##    2 classes: 'High', 'Low' 
     ## 
     ## Pre-processing: centered (45), scaled (45) 
     ## Resampling: Cross-Validated (5 fold, repeated 3 times) 
-    ## Summary of sample sizes: 3729, 3729, 3730, 3730, 3730, 3730, ... 
+    ## Summary of sample sizes: 4163, 4163, 4164, 4163, 4163, 4163, ... 
     ## Resampling results across tuning parameters:
     ## 
     ##   mtry  Accuracy   Kappa    
-    ##    2    0.6176876  0.2336097
-    ##    6    0.6159003  0.2303498
-    ##   11    0.6180481  0.2349429
-    ##   16    0.6231206  0.2448846
-    ##   21    0.6167597  0.2321982
-    ##   25    0.6191183  0.2367409
-    ##   30    0.6199733  0.2390200
-    ##   35    0.6167593  0.2323074
-    ##   40    0.6178322  0.2345292
-    ##   45    0.6140429  0.2269748
+    ##    2    0.6161889  0.2308416
+    ##    6    0.6247732  0.2479355
+    ##   11    0.6278480  0.2543808
+    ##   16    0.6233669  0.2455761
+    ##   21    0.6236235  0.2459270
+    ##   25    0.6272741  0.2531327
+    ##   30    0.6236853  0.2462992
+    ##   35    0.6227249  0.2443268
+    ##   40    0.6263760  0.2517914
+    ##   45    0.6233640  0.2454493
     ## 
     ## Accuracy was used to select the optimal model using the largest value.
-    ## The final value used for the model was mtry = 16.
+    ## The final value used for the model was mtry = 11.
 
 ``` r
 ggplot(data=rf_Fit)
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## K-Nearest-Neighbors
 
@@ -250,26 +250,26 @@ knn_Fit
 
     ## k-Nearest Neighbors 
     ## 
-    ## 4662 samples
+    ## 5204 samples
     ##   45 predictor
     ##    2 classes: 'High', 'Low' 
     ## 
     ## Pre-processing: centered (45), scaled (45) 
     ## Resampling: Cross-Validated (5 fold, repeated 3 times) 
-    ## Summary of sample sizes: 3730, 3730, 3729, 3729, 3730, 3729, ... 
+    ## Summary of sample sizes: 4163, 4164, 4163, 4163, 4163, 4163, ... 
     ## Resampling results across tuning parameters:
     ## 
     ##   k   Accuracy   Kappa    
-    ##    5  0.5903778  0.1815837
-    ##    7  0.5938098  0.1888434
-    ##    9  0.5986706  0.1987226
-    ##   11  0.6026749  0.2067716
-    ##   13  0.6056791  0.2129039
-    ##   15  0.6106841  0.2229034
-    ##   17  0.6121142  0.2257744
-    ##   19  0.6175486  0.2365644
-    ##   21  0.6183344  0.2381527
-    ##   23  0.6158308  0.2331460
+    ##    5  0.6062002  0.2076321
+    ##    7  0.6086996  0.2126046
+    ##    9  0.6115192  0.2183348
+    ##   11  0.6204222  0.2363669
+    ##   13  0.6193319  0.2339390
+    ##   15  0.6201006  0.2354877
+    ##   17  0.6226638  0.2404366
+    ##   19  0.6220222  0.2391115
+    ##   21  0.6242642  0.2436342
+    ##   23  0.6228550  0.2409675
     ## 
     ## Accuracy was used to select the optimal model using the largest value.
     ## The final value used for the model was k = 21.
@@ -278,7 +278,7 @@ knn_Fit
 ggplot(data=knn_Fit)
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](wednesday_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## Comparing Out-Of-Sample Misclassification Rate
 
@@ -296,8 +296,8 @@ knn_MisClass = mean(knn_Pred != test_Num$shares_cat)
 kable(data.frame(Logistic = logistic_MisClass, RF = rf_MisClass, KNN = knn_MisClass), caption = "MisClassification Rate")
 ```
 
-|  Logistic |        RF |       KNN |
-| --------: | --------: | --------: |
-| 0.6198099 | 0.3786893 | 0.3761881 |
+|  Logistic |        RF |      KNN |
+| --------: | --------: | -------: |
+| 0.6302107 | 0.3868221 | 0.388615 |
 
 MisClassification Rate

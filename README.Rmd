@@ -5,9 +5,40 @@ date: "6/30/2020"
 output: rmarkdown::github_document
 ---
 
-```{r}
-rmarkdown::render(input="Analysis.RMD", output_file = "Monday.md", params = list(day="monday"))
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(knitr)
 ```
+
+
+## Set up the call to Analysis.RMD
+```{r}
+days = c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+out_file = paste0(days, ".md")
+
+params = lapply(days, FUN=function(x){
+  return(list(day=x))
+})
+
+reports = tibble(days, out_file, params)
+reports
+```
+
+
+## Generating the reports
+```{r}
+library(rmarkdown)
+
+apply(reports, MARGIN = 1, FUN=function(x){
+  render(input = "Analysis.Rmd", output_file = x[[2]], params=x[[3]])
+})
+```
+
+
+
+
+
 
 
 
