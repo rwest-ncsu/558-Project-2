@@ -5,6 +5,12 @@ Robert West
 
 ## Set up the call to Analysis.RMD
 
+To automate R Markdown, we need to pass in a list of day parameters into
+the `Analysis.Rmd` file with the proper output names. This is done below
+by putting all of this information into a tibble and then applying the
+`rmarkdown::render()` function to produce the
+files
+
 ``` r
 days = c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 out_file = paste0(days, ".md")
