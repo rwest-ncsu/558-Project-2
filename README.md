@@ -38,11 +38,12 @@ apply(reports, MARGIN = 1, FUN=function(x){
 })
 ```
 
-Here are the the reports that are generated for each day:  
-*The analysis for [Monday is available here](%22monday.md%22).  
-*The analysis for [Tuesday is available here](tuesday.md).  
-*The analysis for [Wednesday is available here](wednesday.md).  
-*The analysis for [Thursday is available here](thursday.md).  
-*The analysis for [Friday is available here](friday.md).  
-*The analysis for [Saturday is available here](saturday.md).  
-\*The analysis for [Sunday is available here](sunday.md).
+Here are the the reports that are generated for each day:
+
+  - The analysis for [Monday is available here](Monday.md).  
+  - The analysis for [Tuesday is available here](tuesday.md).  
+  - The analysis for [Wednesday is available here](wednesday.md).  
+  - The analysis for [Thursday is available here](thursday.md).  
+  - The analysis for [Friday is available here](friday.md).  
+  - The analysis for [Saturday is available here](saturday.md).  
+  - The analysis for [Sunday is available here](sunday.md).
