@@ -1,10 +1,13 @@
 ---
-title: "README"
+title: "Project 2"
 author: "Robert West"
 date: "6/30/2020"
 output: rmarkdown::github_document
 ---
 
+```{r}
+rmarkdown::render(input="Analysis.RMD", output_file = "Monday.md", params = list(day="monday"))
+```
 
 
 

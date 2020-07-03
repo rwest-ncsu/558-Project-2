@@ -60,8 +60,9 @@ Overall, the goal of this analysis is to predict the `shares` variable for each 
 ```{r}
 data_Analysis$shares_cat = ifelse(data_Analysis$shares >= 1400, "High", "Low")
 
+#Filter by the day
 data_Day = data_Analysis %>% 
-  filter(monday == 1) %>%
+  filter(data_Analysis[params$day] == 1) %>%
   mutate(shares_cat = as.factor(shares_cat))
 ```
 
@@ -190,6 +191,6 @@ rf_MisClass = mean(rf_Pred != test_Num$shares_cat)
 knn_Pred = predict(knn_Fit, newdata = test_Num)
 knn_MisClass = mean(knn_Pred != test_Num$shares_cat)
 
-kable(data.frame(Logistic = logistic_MisClass, RF = rf_MisClass, KNN = knn_MisClass))
+kable(data.frame(Logistic = logistic_MisClass, RF = rf_MisClass, KNN = knn_MisClass), caption = "MisClassification Rate")
 ```
 
