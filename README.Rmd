@@ -48,6 +48,9 @@ Here are the the reports that are generated for each day:
 
 
 
+```{r}
+render(input="Analysis.Rmd", output_file = "monday.md", params=list(day="monday"))
+```
 
 
 

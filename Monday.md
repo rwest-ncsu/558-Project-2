@@ -94,7 +94,7 @@ ggplot(data=data_Train, aes(x=n_tokens_title, y=n_tokens_content))+
   labs(x="Title Characters", y="Content Characters", color="Share Volume", title="Title Vs Content in Characters")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=rate_positive_words, y=global_rate_positive_words))+
@@ -102,7 +102,7 @@ ggplot(data=data_Train, aes(x=rate_positive_words, y=global_rate_positive_words)
   labs(x="Rate of Positive Words", y="Global Rate of Positive Words", color="Share Volume", title="Individual vs Global Positive Word Rate")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=rate_negative_words, y=global_rate_negative_words))+
@@ -110,7 +110,7 @@ ggplot(data=data_Train, aes(x=rate_negative_words, y=global_rate_negative_words)
   labs(x="Rate of Negative Words", y="Global Rate of Negative Words", color="Share Volume", title="Individual vs Global Negative Word Rate")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=global_subjectivity, y=global_sentiment_polarity))+
@@ -118,7 +118,7 @@ ggplot(data=data_Train, aes(x=global_subjectivity, y=global_sentiment_polarity))
   labs(x="Global Subjectivity", y="Global Sentiment", title="Subjectivity Against Sentiment", color = "Share Volume")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=shares_cat, y=n_tokens_title))+
@@ -126,7 +126,7 @@ ggplot(data=data_Train, aes(x=shares_cat, y=n_tokens_title))+
   labs(y="Title Characters", x="Shares Volume", color="Shares Volume")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-5.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-5.png)<!-- -->
 
 ``` r
 ggplot(data=data_Train, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
@@ -134,7 +134,7 @@ ggplot(data=data_Train, aes(x=avg_positive_polarity, y=avg_negative_polarity))+
   labs(x="Average Positive Polarity", y="Average Negative Polarity", color="Shares Volume", title="Average Positive vs Negative Polarity")
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-11-6.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-7-6.png)<!-- -->
 
 To attempt to predict the relative popularity of a post, I will utilize
 Logistic regression as a GLM and a random forest fit and tuned on a
@@ -230,7 +230,7 @@ rf_Fit
 ggplot(data=rf_Fit)
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ## K-Nearest-Neighbors
 
@@ -278,7 +278,7 @@ knn_Fit
 ggplot(data=knn_Fit)
 ```
 
-![](monday_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](monday_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## Comparing Out-Of-Sample Misclassification Rate
 
